@@ -1,17 +1,23 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+import process from 'next/dist/build/webpack/loaders/resolve-url-loader/lib/postcss'
 
-export default function Home() {
+export const getStaticProps = (async (context) => {
+  const clientEnv = process.env.NEXT_PUBLIC_CLIENT_ENV;
+  return { props: { clientEnv } }
+});
+
+export default function Home({ clientEnv }) {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
+        <title>Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js</a> on Docker!
+          Client env value: <a href="https://nextjs.org">{clientEnv}</a>
         </h1>
 
         <p className={styles.description}>

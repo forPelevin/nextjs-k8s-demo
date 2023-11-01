@@ -1,0 +1,14 @@
+image:
+  repository: localhost:5000/nextjs-k8s-demo
+  tag: latest
+
+resources:
+  limits:
+    cpu: "1"
+    memory: "1Gi"
+
+service:
+  type: NodePort
+
+node:
+  env: development

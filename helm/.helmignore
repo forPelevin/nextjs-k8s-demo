@@ -1,0 +1,6 @@
+.idea
+.env
+bin
+/vendor
+.DS_Store
+.git*
