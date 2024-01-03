@@ -27,9 +27,9 @@ COPY . .
 # Uncomment the following line in case you want to disable telemetry during the build.
 ENV NEXT_TELEMETRY_DISABLED 1
 
-# Inject client env variables
-ARG NEXT_PUBLIC_CLIENT_ENV
-RUN echo "NEXT_PUBLIC_CLIENT_ENV=${NEXT_PUBLIC_CLIENT_ENV}" > .env
+ARG APP_ENV
+RUN cp .env.${APP_ENV} .env.production
+ENV NODE_ENV production
 
 RUN npm run build
 
@@ -37,9 +37,8 @@ RUN npm run build
 FROM base AS runner
 WORKDIR /app
 
-ENV NODE_ENV production
 # Uncomment the following line in case you want to disable telemetry during runtime.
-# ENV NEXT_TELEMETRY_DISABLED 1
+ENV NEXT_TELEMETRY_DISABLED 1
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
